@@ -5,6 +5,7 @@
 **One-click cross-platform installer for [ACE-Step Studio](https://github.com/timoncool/ACE-Step-Studio) — local AI music generation. Suno at home.**
 
 [![Install on Pinokio](https://img.shields.io/badge/🚀_Install_on-Pinokio-7c3aed?style=for-the-badge)](https://pinokio.co/item?uri=https://github.com/timoncool/ACE-Step-Studio-pinokio)
+[![Open in Pinokio](https://img.shields.io/badge/📂_Open_in-Pinokio-6d28d9?style=for-the-badge)](https://beta.pinokio.co/apps/github-com-timoncool-ace-step-studio-pinokio)
 [![Main repo](https://img.shields.io/badge/App_Source-ACE--Step--Studio-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/timoncool/ACE-Step-Studio)
 [![Donate](https://img.shields.io/badge/💖_Support-Donate-ff69b4?style=for-the-badge)](DONATE.md)
 
@@ -30,7 +31,9 @@ This repository is the **Pinokio launcher** for [ACE-Step Studio](https://github
 ## Install
 
 1. Download and install **[Pinokio](https://pinokio.co/)**
-2. Open this one-click URL: **[Install ACE-Step Studio on Pinokio](https://pinokio.co/item?uri=https://github.com/timoncool/ACE-Step-Studio-pinokio)**
+2. Open in Pinokio:
+   - 🚀 **[Install (1-click)](https://pinokio.co/item?uri=https://github.com/timoncool/ACE-Step-Studio-pinokio)** — direct install URL
+   - 📂 **[Browse app page](https://beta.pinokio.co/apps/github-com-timoncool-ace-step-studio-pinokio)** — catalog page on beta.pinokio.co
 3. Click **Install** inside Pinokio — it will clone the app, create a Python 3.12 venv, install PyTorch (right build for your GPU), pull models on first run
 
 ## What this launcher does
