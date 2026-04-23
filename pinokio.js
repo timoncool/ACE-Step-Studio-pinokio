@@ -2,7 +2,7 @@ const path = require('path')
 module.exports = {
   version: "6.0.0",
   title: "ACE-Step Studio",
-  description: "Suno at home. Local AI music generation studio. Built on ACE-Step 1.5 XL.",
+  description: "Suno at home. Local AI music generation studio — full songs with vocals, lyrics, covers, and music videos. Built on ACE-Step 1.5 XL.",
   icon: "icon.jpg",
   menu: async (kernel, info) => {
     let installed = info.exists("app/env")
