@@ -1,129 +1,60 @@
+<div align="center">
+
 # ACE-Step Studio — Pinokio launcher
 
-One-click Pinokio launcher for [timoncool/ACE-Step-Studio](https://github.com/timoncool/ACE-Step-Studio) — a local AI music generation studio ("Suno at home"). Built on [ACE-Step 1.5 XL](https://github.com/ace-step/ACE-Step-1.5).
+**One-click cross-platform installer for [ACE-Step Studio](https://github.com/timoncool/ACE-Step-Studio) — local AI music generation. Suno at home.**
 
-## What it does
+[![Install on Pinokio](https://img.shields.io/badge/🚀_Install_on-Pinokio-7c3aed?style=for-the-badge)](https://pinokio.co/item?uri=https://github.com/timoncool/ACE-Step-Studio-pinokio)
+[![Main repo](https://img.shields.io/badge/App_Source-ACE--Step--Studio-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/timoncool/ACE-Step-Studio)
+[![Donate](https://img.shields.io/badge/💖_Support-Donate-ff69b4?style=for-the-badge)](DONATE.md)
 
-Installs and launches ACE-Step Studio inside Pinokio with zero manual steps:
+[![Stars](https://img.shields.io/github/stars/timoncool/ACE-Step-Studio-pinokio?style=flat-square&logo=github)](https://github.com/timoncool/ACE-Step-Studio-pinokio/stargazers)
+[![License](https://img.shields.io/github/license/timoncool/ACE-Step-Studio-pinokio?style=flat-square)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/timoncool/ACE-Step-Studio-pinokio?style=flat-square)](https://github.com/timoncool/ACE-Step-Studio-pinokio/commits/main)
+[![Issues](https://img.shields.io/github/issues/timoncool/ACE-Step-Studio-pinokio?style=flat-square)](https://github.com/timoncool/ACE-Step-Studio-pinokio/issues)
+[![Code size](https://img.shields.io/github/languages/code-size/timoncool/ACE-Step-Studio-pinokio?style=flat-square)](https://github.com/timoncool/ACE-Step-Studio-pinokio)
+[![Pinokio](https://img.shields.io/badge/Pinokio-topic-7c3aed?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZiI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48L3N2Zz4=)](https://pinokio.co/)
 
-- Isolated Python `venv` at `app/env` with **Python 3.12** (managed by Pinokio + uv)
-- PyTorch selected by GPU/OS — CUDA 12.8 (NVIDIA x64), CUDA 13.0 (DGX Spark aarch64), DirectML (AMD Win), ROCm 6.3 (AMD Linux), MPS/CPU (macOS), CPU fallback
-- Triton + Flash-Attention 2 on NVIDIA (Windows/Linux x64)
+[![Windows](https://img.shields.io/badge/Windows-10/11-0078D6?style=flat-square&logo=windows&logoColor=white)](#platform-support-matrix)
+[![Linux](https://img.shields.io/badge/Linux-x64_%2F_aarch64-FCC624?style=flat-square&logo=linux&logoColor=black)](#platform-support-matrix)
+[![macOS](https://img.shields.io/badge/macOS-Apple_Silicon-000000?style=flat-square&logo=apple&logoColor=white)](#platform-support-matrix)
+[![NVIDIA](https://img.shields.io/badge/NVIDIA-CUDA_12.8-76B900?style=flat-square&logo=nvidia&logoColor=white)](#platform-support-matrix)
+[![AMD](https://img.shields.io/badge/AMD-DirectML_%2F_ROCm-ED1C24?style=flat-square&logo=amd&logoColor=white)](#platform-support-matrix)
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python&logoColor=white)](#)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.7.1-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](#)
+
+</div>
+
+This repository is the **Pinokio launcher** for [ACE-Step Studio](https://github.com/timoncool/ACE-Step-Studio) — the actual app lives there. This repo only contains the scripts that Pinokio runs to install, start, update and reset the app in an isolated cross-platform environment.
+
+## Install
+
+1. Download and install **[Pinokio](https://pinokio.co/)**
+2. Open this one-click URL: **[Install ACE-Step Studio on Pinokio](https://pinokio.co/item?uri=https://github.com/timoncool/ACE-Step-Studio-pinokio)**
+3. Click **Install** inside Pinokio — it will clone the app, create a Python 3.12 venv, install PyTorch (right build for your GPU), pull models on first run
+
+## What this launcher does
+
+- Isolated Python `venv` with **Python 3.12** via uv — no system-wide installs
+- PyTorch auto-selected by GPU/OS — CUDA 12.8 (NVIDIA x64), CUDA 13.0 (aarch64), DirectML (AMD Win), ROCm 6.3 (AMD Linux), MPS/CPU (macOS), CPU fallback
+- Triton + Flash-Attention 2 on NVIDIA Win/Linux (auto-skipped elsewhere)
 - **MLX native acceleration** on Apple Silicon
 - Bundled Node.js + npm + ffmpeg from Pinokio (no separate downloads)
-- Frontend built via Vite, Express server launched via `tsx`
-- Portable models cache under `app/models` (HF_HOME)
-- Full cross-platform: Windows / Linux (x64, aarch64) / macOS (ARM + Intel)
+- Frontend built via Vite, Express server via `tsx`
+- Models cached under `app/models` (HF_HOME)
+- Cross-platform: Windows / Linux x64 & aarch64 / macOS ARM & Intel
 
 ## Launch modes
 
-| Menu item | What it runs | When to use |
-|-----------|--------------|-------------|
-| **Start (Standard)** | Full Express + DiT + LM (PT backend) | Default — all features, AI lyrics, cover/repaint |
-| **Start (No LM)** | DiT only, LM disabled | Low-VRAM GPUs, or when AI lyrics not needed |
-| **Start (Dev)** | `tsx watch` + Vite HMR | Launcher/app development |
-| **Open Output Folder** | Opens file explorer at generated files / models / app data | Browse results outside Pinokio |
-| **Update** | `git pull` launcher + app + ACE-Step-1.5 + rebuild frontend | Pull latest code |
-| **Install** | Re-run install | Recovery after deps corruption |
-| **Save Disk Space** | `fs.link` dedup venv | Symlink duplicate libraries across Pinokio apps |
-| **Reset** | `fs.rm app/` | Full wipe — returns to pre-install state |
-
-## Launcher files
-
-| File | Purpose |
-|------|---------|
-| `pinokio.json` | Display metadata (title, description, icon, links) |
-| `pinokio.js`   | Dynamic sidebar menu (schema 6.0.0) |
-| `install.js`   | Clone + venv + Python deps + torch.js + flash-attn + MLX + frontend build |
-| `start.js`     | Standard launch (all env vars injected) |
-| `start_no_lm.js` | No-LM launch |
-| `start_dev.js` | Dev-mode launch with Vite HMR |
-| `update.js`    | Git pulls + rebuild |
-| `reset.js`     | `fs.rm app` |
-| `link.js`      | Venv dedup via `fs.link` |
-| `torch.js`     | Cross-platform PyTorch install (7 GPU/OS branches) |
-
-## Accessing the web UI
-
-When ACE-Step Studio is running, Pinokio exposes:
-
-- **Pinokio tab**: click "Open Web UI" in the sidebar
-- **Localhost**: `http://localhost:{port}` — port printed in terminal (auto-assigned by Pinokio)
-- **HTTPS proxy**: `https://{port}.localhost` — auto-generated by Pinokio
-
-## API usage (programmatic access)
-
-ACE-Step Studio exposes an Express REST API on the same port as the web UI.
-
-### JavaScript / TypeScript
-
-```javascript
-const BASE_URL = 'http://localhost:3001'; // or whichever port Pinokio assigned
-
-// Generate a song
-const response = await fetch(`${BASE_URL}/api/generate`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    prompt: 'upbeat electronic dance track',
-    lyrics: '[verse]\nNeon lights, midnight drive...',
-    model: 'xl-turbo-bf16',
-    steps: 8,
-    seed: 42,
-  })
-});
-const { songId, audioUrl } = await response.json();
-
-// Poll for status
-const status = await fetch(`${BASE_URL}/api/songs/${songId}`).then(r => r.json());
-```
-
-### Python
-
-```python
-import requests
-
-BASE_URL = 'http://localhost:3001'
-
-resp = requests.post(f'{BASE_URL}/api/generate', json={
-    'prompt': 'upbeat electronic dance track',
-    'lyrics': '[verse]\nNeon lights, midnight drive...',
-    'model': 'xl-turbo-bf16',
-    'steps': 8,
-    'seed': 42,
-})
-song_id = resp.json()['songId']
-
-# Poll
-song = requests.get(f'{BASE_URL}/api/songs/{song_id}').json()
-print(song['status'], song['audioUrl'])
-```
-
-### cURL
-
-```bash
-# Generate
-curl -X POST http://localhost:3001/api/generate \
-  -H 'Content-Type: application/json' \
-  -d '{"prompt":"upbeat edm","lyrics":"[verse]\nNeon lights","steps":8}'
-
-# System stats (GPU/VRAM/CPU)
-curl http://localhost:3001/api/system
-```
-
-## Environment variables
-
-All set automatically by start scripts — listed for reference:
-
-| Variable | Value | Purpose |
-|---|---|---|
-| `PYTHON_PATH` | `app/env/Scripts/python.exe` (Win) / `app/env/bin/python` (Unix) | Pinokio-managed venv Python |
-| `ACESTEP_PATH` | `app/ACE-Step-1.5` | ACE-Step ML pipeline root |
-| `HF_HOME` | `app/models` | HuggingFace cache |
-| `DEFAULT_MODEL` | `marcorez8/acestep-v15-xl-turbo-bf16` | 7.5 GB BF16 model (auto-downloaded) |
-| `MANAGE_PIPELINE` | `true` | Let Express spawn/manage Python |
-| `HF_HUB_ENABLE_HF_TRANSFER` | `1` | Faster HF downloads |
-| `PORT` | `{{port}}` (Pinokio-assigned) | Server port |
+| Menu item | What it runs |
+|-----------|--------------|
+| **Start (Standard)** | Full Express + DiT + LM (PT backend) |
+| **Start (No LM)** | DiT only — more VRAM free, no AI lyrics |
+| **Start (Dev)** | `tsx watch` + Vite HMR (for launcher development) |
+| **Open Folder** | File explorer at Generated Audio / App Data / Models cache |
+| **Update** | `git pull` launcher + app + ACE-Step-1.5 + rebuild frontend |
+| **Save Disk Space** | Dedup venv libraries via `fs.link` |
+| **Reset** | Wipe `app/` folder (full pre-install state) |
 
 ## Platform support matrix
 
@@ -135,13 +66,47 @@ All set automatically by start scripts — listed for reference:
 | Windows | AMD RDNA3+ | ✅ expected | DirectML |
 | Linux | AMD RDNA3+ | ✅ expected | ROCm 6.3 |
 | macOS | Apple Silicon M1–M4 | ✅ expected | MPS + MLX native |
-| macOS | Intel | ⚠️ works, CPU-only | CPU |
-| Any | CPU only | ⚠️ works, very slow | CPU |
-| Windows/Linux | NVIDIA GTX 10xx (Pascal) | ❌ not supported — `cu128` requires `sm_70+` | — |
+| macOS | Intel | ⚠️ CPU-only | CPU |
+| Any | CPU only | ⚠️ very slow | CPU |
+| Win/Linux | NVIDIA GTX 10xx (Pascal) | ❌ `cu128` requires `sm_70+` | — |
 
 ## Links
 
-- **ACE-Step Studio** (app): https://github.com/timoncool/ACE-Step-Studio
-- **ACE-Step 1.5** (base model): https://github.com/ace-step/ACE-Step-1.5
-- **Upstream UI** (fspecii/ace-step-ui): https://github.com/fspecii/ace-step-ui
-- **Author**: [@nerual_dreming](https://t.me/nerual_dreming) · [GitHub](https://github.com/timoncool)
+- 🎵 **App source / issues** — [ACE-Step-Studio](https://github.com/timoncool/ACE-Step-Studio)
+- 📰 **Changelog** — [CHANGELOG.md](https://github.com/timoncool/ACE-Step-Studio/blob/master/CHANGELOG.md)
+- 🧠 **Base model** — [ACE-Step 1.5](https://github.com/ace-step/ACE-Step-1.5)
+- 🎛️ **Upstream UI** — [fspecii/ace-step-ui](https://github.com/fspecii/ace-step-ui)
+- 🚀 **Pinokio** — [pinokio.co](https://pinokio.co/)
+
+## Support the author
+
+This launcher and the app itself are **100% free, local, open-source**. Your donation lets me focus on building:
+
+[![Donate Card](https://img.shields.io/badge/Card_%2F_PayPal-dalink.to-29ABE2?style=for-the-badge&logo=paypal&logoColor=white)](https://dalink.to/nerual_dreming)
+[![Boosty](https://img.shields.io/badge/Monthly-Boosty-F15F2C?style=for-the-badge)](https://boosty.to/neuro_art)
+
+Full donation guide (EN/RU) with crypto addresses and QR codes: **[DONATE.md](DONATE.md)**
+
+## Author
+
+- **Nerual Dreming** — [@timoncool](https://github.com/timoncool) · [Telegram](https://t.me/nerual_dreming) · [neuro-cartel.com](https://neuro-cartel.com) · [ArtGeneration.me](https://artgeneration.me)
+
+## License
+
+[MIT](LICENSE) — same as the main [ACE-Step Studio](https://github.com/timoncool/ACE-Step-Studio) project.
+
+---
+
+<div align="center">
+
+### Star History
+
+<a href="https://www.star-history.com/?repos=timoncool%2FACE-Step-Studio,timoncool%2FACE-Step-Studio-pinokio&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=timoncool/ACE-Step-Studio,timoncool/ACE-Step-Studio-pinokio&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=timoncool/ACE-Step-Studio,timoncool/ACE-Step-Studio-pinokio&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=timoncool/ACE-Step-Studio,timoncool/ACE-Step-Studio-pinokio&type=date&legend=top-left" />
+ </picture>
+</a>
+
+</div>
