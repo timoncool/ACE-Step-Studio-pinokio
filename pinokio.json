@@ -1,0 +1,32 @@
+{
+  "title": "ACE-Step Studio",
+  "description": "Suno at home. Local AI music generation studio — full songs with vocals, lyrics, covers, and music videos. Built on ACE-Step 1.5 XL. 100% local, no cloud.",
+  "icon": "icon.jpg",
+  "posts": [],
+  "links": [
+    {
+      "title": "ACE-Step Studio (app)",
+      "links": [
+        { "title": "GitHub repo",   "value": "https://github.com/timoncool/ACE-Step-Studio" },
+        { "title": "CHANGELOG",     "value": "https://github.com/timoncool/ACE-Step-Studio/blob/master/CHANGELOG.md" },
+        { "title": "Report a bug",  "value": "https://github.com/timoncool/ACE-Step-Studio/issues" }
+      ]
+    },
+    {
+      "title": "Author — Nerual Dreming",
+      "links": [
+        { "title": "GitHub",           "value": "https://github.com/timoncool" },
+        { "title": "Telegram",         "value": "https://t.me/nerual_dreming" },
+        { "title": "ArtGeneration.me", "value": "https://artgeneration.me" },
+        { "title": "neuro-cartel.com", "value": "https://neuro-cartel.com" }
+      ]
+    },
+    {
+      "title": "ACE-Step (base model)",
+      "links": [
+        { "title": "GitHub (ACE-Step)",     "value": "https://github.com/ace-step/ACE-Step" },
+        { "title": "GitHub (ACE-Step 1.5)", "value": "https://github.com/ace-step/ACE-Step-1.5" }
+      ]
+    }
+  ]
+}
