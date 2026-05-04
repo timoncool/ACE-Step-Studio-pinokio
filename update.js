@@ -40,6 +40,20 @@ module.exports = {
         path: "app/app/server",
         message: ["npm install"]
       }
+    },
+    // Python deps refresh — pulls in any new deps added since first install.
+    // As of 2026-05-04: pytorch-wavelets + pywavelets for DCW (CVPR 2026 quality boost).
+    // uv is idempotent; already-installed deps are no-ops.
+    {
+      when: "{{exists('app/env')}}",
+      method: "shell.run",
+      params: {
+        path: "app",
+        venv: "env",
+        message: [
+          "uv pip install \"pytorch-wavelets>=1.3.0\" \"pywavelets>=1.9.0\""
+        ]
+      }
     }
   ]
 }

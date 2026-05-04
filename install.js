@@ -35,7 +35,7 @@ module.exports = {
         message: [
           "uv pip install hatchling editables",
           "uv pip install -e ACE-Step-1.5/acestep/third_parts/nano-vllm/",
-          "uv pip install \"transformers>=4.51.0,<4.58.0\" diffusers \"gradio==6.2.0\" matplotlib scipy soundfile loguru einops accelerate fastapi diskcache \"uvicorn[standard]\" numba vector-quantize-pytorch torchcodec \"torchao>=0.16.0,<0.17.0\" toml peft modelscope tensorboard typer-slim hf_transfer hf_xet lightning lycoris-lora safetensors xxhash"
+          "uv pip install \"transformers>=4.51.0,<4.58.0\" diffusers \"gradio==6.2.0\" matplotlib scipy soundfile loguru einops accelerate fastapi diskcache \"uvicorn[standard]\" numba vector-quantize-pytorch torchcodec \"torchao>=0.16.0,<0.17.0\" toml peft modelscope tensorboard typer-slim hf_transfer hf_xet lightning lycoris-lora safetensors xxhash \"pytorch-wavelets>=1.3.0\" \"pywavelets>=1.9.0\""
         ]
       }
     },
