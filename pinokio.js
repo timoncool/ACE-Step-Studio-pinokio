@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "6.0.0",
+  version: "6.1.0",
   title: "ACE-Step Studio",
   description: "Suno at home. Local AI music generation studio — full songs with vocals, lyrics, covers, and music videos. Built on ACE-Step 1.5 XL.",
   icon: "icon.jpg",
