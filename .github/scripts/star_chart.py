@@ -4,12 +4,15 @@
 Uses the Actions GITHUB_TOKEN via `gh api` env or GITHUB_TOKEN + urllib.
 """
 
+import http.client
 import json
 import os
-import urllib.request
+import re
 from datetime import datetime, timezone
 
 REPO = os.environ["GITHUB_REPOSITORY"]
+if not re.fullmatch(r"[A-Za-z0-9_.\-]+/[A-Za-z0-9_.\-]+", REPO):
+    raise ValueError(f"Invalid GITHUB_REPOSITORY value: {REPO!r}")
 TOKEN = os.environ["GITHUB_TOKEN"]
 OUT_DIR = "docs"
 
@@ -17,13 +20,17 @@ OUT_DIR = "docs"
 def fetch_stars() -> list[datetime]:
     dates, page = [], 1
     while True:
-        req = urllib.request.Request(
-            f"https://api.github.com/repos/{REPO}/stargazers?per_page=100&page={page}",
+        conn = http.client.HTTPSConnection("api.github.com")
+        conn.request(
+            "GET",
+            f"/repos/{REPO}/stargazers?per_page=100&page={page}",
             headers={"Accept": "application/vnd.github.star+json",
                      "Authorization": f"Bearer {TOKEN}",
-                     "X-GitHub-Api-Version": "2022-11-28"})
-        with urllib.request.urlopen(req) as r:
-            batch = json.load(r)
+                     "X-GitHub-Api-Version": "2022-11-28",
+                     "User-Agent": "star-chart-script"})
+        r = conn.getresponse()
+        batch = json.loads(r.read().decode())
+        conn.close()
         if not batch:
             break
         dates += [datetime.fromisoformat(s["starred_at"].replace("Z", "+00:00"))
@@ -77,8 +84,12 @@ def render(dates: list[datetime], theme: str) -> str:
 def main() -> None:
     dates = fetch_stars()
     os.makedirs(OUT_DIR, exist_ok=True)
+    base = os.path.realpath(OUT_DIR)
     for theme in ("dark", "light"):
-        with open(f"{OUT_DIR}/stars-{theme}.svg", "w", encoding="utf-8") as f:
+        out_path = os.path.realpath(os.path.join(OUT_DIR, f"stars-{theme}.svg"))
+        if not out_path.startswith(base + os.sep):
+            raise ValueError(f"Unsafe output path: {out_path}")
+        with open(out_path, "w", encoding="utf-8") as f:
             f.write(render(dates, theme))
     print(f"rendered {len(dates)} stars")
 
