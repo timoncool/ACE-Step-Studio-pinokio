@@ -11,7 +11,7 @@ module.exports = {
       when: "{{!exists('app')}}",
       method: "shell.run",
       params: {
-        message: ["git clone https://github.com/timoncool/ACE-Step-Studio app"]
+        message: ["git clone -b master https://github.com/timoncool/ACE-Step-Studio app"]
       }
     },
 
